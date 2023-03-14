@@ -1,3 +1,4 @@
+import sys
 import pygame
 import pygame.mouse
 
@@ -32,6 +33,7 @@ def main():
                 col = location[0] // Config.SQUARE_SIZE
                 row = location[1] // Config.SQUARE_SIZE
                 moveMade = interaction.click(row, col, gameState, validMoves)
+                print(moveMade)
             elif event.type == pygame.KEYDOWN and event.key == pygame.K_z:
                 gameState.undoMove()
                 moveMade = True
