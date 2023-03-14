@@ -9,7 +9,10 @@ class Interaction:
     def reset(self):
         self.__init__()
 
-    def click(self, row, col, gameState):
+    '''
+        Returns true if the move was made with the interaction, otherwise false
+    '''
+    def click(self, row, col, gameState, validMoves) -> bool:
         if self.square_selected == (row, col):  # user clicked the same square twice
             self.reset()
         else:
@@ -18,5 +21,9 @@ class Interaction:
 
         if len(self.player_clicks) == 2:  # a move is made:
             move = Move(self.player_clicks[0], self.player_clicks[1], gameState.board)
-            gameState.makeMove(move)
-            self.reset()
+            if move in validMoves:
+                gameState.makeMove(move)
+                self.reset()
+                return True
+
+        return False
