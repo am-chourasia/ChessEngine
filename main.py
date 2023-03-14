@@ -5,6 +5,7 @@ from DrawGameState import DrawGameState
 from Interaction import Interaction
 from GameState import GameState
 from config import Config
+from ValidMovesGenerator import ValidMovesGenerator
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
 
     running = True
     interaction = Interaction()
-    validMoves = gameState.getValidMoves()
+    validMoves = ValidMovesGenerator.getValidMoves(gameState)
     moveMade = False
     DrawGameState(screen, gameState.board)
 
@@ -36,11 +37,11 @@ def main():
                 moveMade = True
 
         if moveMade:
-            validMoves = gameState.getValidMoves()
+            validMoves = ValidMovesGenerator.getValidMoves(gameState)
             moveMade = False
             DrawGameState(screen, gameState.board)  # draw the new state of the game on the screen
         clock.tick(Config.MAX_FPS)
-        pygame.display.flip()                   # update the new screen on the display board
+        pygame.display.flip()  # update the new screen on the display board
 
 
 if __name__ == '__main__':

@@ -1,5 +1,6 @@
 from Move import Move
 
+
 class GameState:
     def __init__(self):
         """
@@ -25,8 +26,8 @@ class GameState:
     def makeMove(self, move):
         startRow, startCol = move.start_row, move.start_col
         endRow, endCol = move.end_row, move.end_col
-        self.board[startRow][startCol] = '--'           # the source of the move becomes empty
-        self.board[endRow][endCol] = move.piece_moved   # the destination becomes the source piece
+        self.board[startRow][startCol] = '--'  # the source of the move becomes empty
+        self.board[endRow][endCol] = move.piece_moved  # the destination becomes the source piece
         self.move_log.append(move)
         self.whiteToMove = not self.whiteToMove
 
@@ -36,29 +37,3 @@ class GameState:
             self.board[lastMove.start_row][lastMove.start_col] = lastMove.piece_moved
             self.board[lastMove.end_row][lastMove.end_col] = lastMove.piece_captured
             self.whiteToMove = not self.whiteToMove  # swap players
-
-    def getValidMoves(self):
-        return self.getAllPossibleMoves()
-
-    def getAllPossibleMoves(self):
-        """
-        All moves without considering check.
-        """
-        moves = [Move((6, 4), (4, 4), self.board)]
-        for row in range(len(self.board)):
-            for col in range(len(self.board[row])):
-                turn = self.board[row][col][0]
-                if (turn == "w" and self.whiteToMove) or (turn == "b" and not self.whiteToMove):
-                    piece = self.board[row][col][1]
-                    if piece == 'P':
-                        self.getPawnMoves()
-                    elif piece == 'R':
-                        self.getRookMoves()
-        return moves
-
-    def getPawnMoves(self):
-        pass
-
-    def getRookMoves(self):
-        pass
-
